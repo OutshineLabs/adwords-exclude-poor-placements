@@ -1,6 +1,6 @@
 {
   "name": "exclude-poor-placements",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Exclude Poor AdWords placements based on terms.",
   "main": "script/index.ts",
   "scripts": {

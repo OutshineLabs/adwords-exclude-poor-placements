@@ -23,6 +23,8 @@ by performance.
 To exclude more TLDs from your placements, just add them to the list of TLDs starting at line 9.
 TLDs should start with a '.' and be comma-delimited.
 
+**Note :** The label `Exclude Poor Placements` must be added to all accounts you want to execute on.
+
 ## Compilation and Installation
 
 This script is written using Typescript. To compile this script run the following :
