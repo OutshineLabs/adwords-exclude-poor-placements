@@ -5,9 +5,9 @@
  */
 
 // Top Level Domains to exclude
-
 const TLDs = '.xyz, .info, .tk';
 
+// The label to apply to your ad word accounts 
 const WHITELIST_LABEL = 'Exclude Poor Placements';
 
 // -------------------------------------------------------

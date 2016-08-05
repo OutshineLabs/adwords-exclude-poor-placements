@@ -11,5 +11,10 @@
     "Placements"
   ],
   "author": "Dawson Reid <dawson@outshine.ca>",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:OutshineLabs/adwords-exclude-poor-placements.git"
+  },
+  "homepage": "https://github.com/OutshineLabs/adwords-exclude-poor-placements"
 }
