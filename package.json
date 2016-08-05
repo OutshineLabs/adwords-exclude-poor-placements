@@ -1,0 +1,15 @@
+{
+  "name": "exclude-poor-placements",
+  "version": "0.1.0",
+  "description": "Exclude Poor AdWords placements based on terms.",
+  "main": "script/index.ts",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "AdWords",
+    "Placements"
+  ],
+  "author": "Dawson Reid <dawson@outshine.ca>",
+  "license": "ISC"
+}
