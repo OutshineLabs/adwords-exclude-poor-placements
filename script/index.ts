@@ -8,25 +8,23 @@
 
 const TLDs = '.xyz, .info, .tk';
 
-const USE_WHITELIST = true;
-const WHITELIST_COLUMN_NAME = 'Exclude Poor Placement';
-const WHITELIST_SPREADSHEET = '1C_ZcxNm_Tx_NQrHF_DK4eYcmf-O1tH0HpiirBROyFd4';
+const WHITELIST_LABEL = 'Exclude Poor Placements';
 
 // -------------------------------------------------------
 
 function removePlacementByDomain (domain) {
-  var placementSelector = AdWordsApp.display().placements()
+  const placementSelector = AdWordsApp.display().placements()
   .withCondition("PlacementUrl CONTAINS '" + domain + "'");
 
-  var placementIterator = placementSelector.get();
+  const placementIterator = placementSelector.get();
   while (placementIterator.hasNext()) {
-    var placement = placementIterator.next();
-    var placementUrl = placement.getUrl();
+    const placement = placementIterator.next();
+    const placementUrl = placement.getUrl();
     //Logger.log(placementUrl);
 
-    var campaign = placement.getCampaign();
+    const campaign = placement.getCampaign();
     if (!campaign.isRemoved()) {
-      var excludeOperation = campaign.display().newPlacementBuilder().withUrl(placementUrl).exclude();
+      const excludeOperation = campaign.display().newPlacementBuilder().withUrl(placementUrl).exclude();
       if (!excludeOperation.isSuccessful()) {
         Logger.log("Could not exclude : " + placementUrl);
       }
@@ -45,7 +43,7 @@ function run () {
 function executeInSequence (sequentialIds, executeSequentiallyFunc) {
   Logger.log('Executing in sequence : ' + sequentialIds);
   sequentialIds.forEach(function (accountId) {
-    var account = MccApp.accounts().withIds([accountId]).get().next();
+    const account = MccApp.accounts().withIds([accountId]).get().next();
     MccApp.select(account);
     executeSequentiallyFunc();
   });
@@ -53,22 +51,18 @@ function executeInSequence (sequentialIds, executeSequentiallyFunc) {
 
 function main () {
   try {
-    var accountSelector = MccApp.accounts().orderBy('Name');
-    if (USE_WHITELIST) {
-
-    } else {
-      Logger.log("WARNING : Executing accross all accounts. It is recommended that you explicitly specify the accounts to execute on via a whitelist.");
-    }
-    var accountIterator = accountSelector.get();
-    Logger.log('Executing accross ' + accountIterator);
-
-    var accountIds = [];
+    const accountIterator = MccApp.accounts()
+      .withCondition(`LabelNames CONTAINS '${WHITELIST_LABEL}'`)
+      .orderBy('Name')
+      .get();
+    // map account entities to
+    const accountIds = [];
     while (accountIterator.hasNext()) {
-      var account = accountIterator.next();
+      const account = accountIterator.next();
       accountIds.push(account.getCustomerId());
     }
-    var parallelIds = accountIds.slice(0, 50);
-    var sequentialIds = accountIds.slice(50);
+    const parallelIds = accountIds.slice(0, 50);
+    const sequentialIds = accountIds.slice(50);
     // execute accross accounts
     MccApp.accounts()
       .withIds(parallelIds)
